@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import Form from "./components/reminder-form/reminder-form";
 
 const App: FC = () => {
