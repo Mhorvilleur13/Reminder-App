@@ -5,10 +5,18 @@ const Form = ({}: {}) => {
     e.preventDefault();
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" className="input" placeholder="Add a remider"></input>
-      <input type="text" className="input" placeholder="How do you want to be reminded?"></input>
-      <button type="submit">Add reminder to your list.</button>
+    <form onSubmit={handleSubmit} className="form-group">
+      <div>
+        <input type="text" className="form-control" placeholder="Add a remider" />
+      </div>
+      <div className="mt-2">
+        <input type="text" className="form-control" placeholder="How do you want to be reminded?" />
+      </div>
+      <div className="mt-2">
+        <button type="submit" className="btn btn-primary">
+          Add reminder to your list
+        </button>
+      </div>
     </form>
   );
 };
