@@ -1,10 +1,9 @@
-import React, { FC } from "react";
-import Form from "./components/reminder-form/reminder-form";
+import React from "react";
 
-const App: FC = () => {
+const App = ({}: {}) => {
   return (
-    <div className="App">
-      <Form />
+    <div className="mt-4 container">
+      <h1>Reminder app</h1>
     </div>
   );
 };
