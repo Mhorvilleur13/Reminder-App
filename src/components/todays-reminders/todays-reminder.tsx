@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-export default function TodaysReminders() {
-
-}
+export default function TodaysReminders() {}
