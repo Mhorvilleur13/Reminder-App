@@ -1,5 +1,3 @@
-import { ITask } from "./task";
-
 export interface Reminder {
   text: string;
   time: Date;
