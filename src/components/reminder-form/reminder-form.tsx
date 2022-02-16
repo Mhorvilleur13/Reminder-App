@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
 
-export default function Form() {
+const Form = ({}: {}) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
   };
@@ -11,4 +11,6 @@ export default function Form() {
       <button type="submit">Add reminder to your list.</button>
     </form>
   );
-}
+};
+
+export default Form;

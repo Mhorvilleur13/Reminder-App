@@ -1,3 +1,5 @@
 import React from "react";
 
-export default function AllReminders() {}
+const AllReminders = ({}: {}) => {};
+
+export default AllReminders;
