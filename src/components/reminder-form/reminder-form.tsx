@@ -32,6 +32,10 @@ const Form = ({ }: {}) => {
     }
     console.log(taskObject);
   };
+  const recurringTypes = [RecurrenceType.HOURLY, RecurrenceType.DAILY, RecurrenceType.WEEKLY, RecurrenceType.MONTHLY, RecurrenceType.ANUALLY];
+
+  const reminderTypesArray = [ReminderType.EMAIL, ReminderType.IN_APP, ReminderType.SMS];
+
   return (
     <form onSubmit={handleSubmit} className="form-group">
       <div>
@@ -41,9 +45,13 @@ const Form = ({ }: {}) => {
         <h6>What would you like the reminder to say?</h6>
         <textarea id="custom-message" onChange={e => setTaskMessage(e.target.value)}></textarea>
       </div>
-      <div className="mt-3">
-        {/* <input onChange={e => setReminderType(e.target.value)} type="text" className="form-control" placeholder="How would you like to be reminded?" /> */}
-
+      <div className=" card mt-3 text-secondary">
+        <h6>How would you like to be reminded?</h6>
+        <select onChange={e => setReminderType(reminderTypesArray[Number(e.target.value)])} id="reminder-type" name="reminder-type" multiple>
+          {reminderTypesArray.map((reminderType, index) => {
+            return <option value={index}>{reminderType}</option>
+          })}
+        </select>
       </div>
       <div className=" card mt-3 text-secondary">
         <h6>When would you like to be reminded?</h6>
@@ -58,11 +66,11 @@ const Form = ({ }: {}) => {
       </div>
       <div className="card mt-3 text-secondary">
         <h6>How often would would like to be reminded?</h6>
-        <select id="reminder-frequency" name="reminder">
-          <option value={RecurrenceType.HOURLY}>{RecurrenceType.HOURLY}</option>
-          <option value="daily">{RecurrenceType.DAILY}</option>
-          <option value="weekly">{RecurrenceType.WEEKLY}</option>
-          <option value="yearly">{RecurrenceType.YEARLY}</option>
+        {/* <select onChange={e => setReccuringFrequency(RecurrenceType[e.target.value as keyof typeof RecurrenceType])} id="reminder-frequency" name="reminder"> */}
+        <select onChange={e => setReccuringFrequency(recurringTypes[Number(e.target.value)])} id="reminder-frequency" name="reminder">
+          {recurringTypes.map((recurringType, index) => {
+            return <option value={index}>{recurringType}</option>
+          })}
         </select>
       </div>
       <div className="card mt-3 text-secondary">
