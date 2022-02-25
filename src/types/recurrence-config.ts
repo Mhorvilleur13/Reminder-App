@@ -7,6 +7,7 @@ export interface RecurrenceConfig {
 }
 
 export enum RecurrenceType {
+  ONCE = "ONCE",
   HOURLY = "HOURLY",
   DAILY = "DAILY",
   WEEKLY = "WEEKLY",
