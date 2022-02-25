@@ -4,7 +4,7 @@ import { Tag } from "./tag";
 
 export interface Task {
   taskName: string;
-  reminderDate: string,
+  reminderDate: string;
   tags: Tag[];
   recurring: boolean;
   recurrenceConfig: RecurrenceConfig;

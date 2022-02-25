@@ -1,5 +1,7 @@
 import React from "react";
 
-const UpcomingReminders = ({}: {}) => {};
+const UpcomingReminders = () => {
+  return <></>;
+};
 
 export default UpcomingReminders;
