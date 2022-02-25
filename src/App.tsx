@@ -3,7 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import About from "./components/about/about";
 import Form from "./components/reminder-form/reminder-form";
 
-const App = ({}: {}) => {
+const App = () => {
   return (
     <div className="mt-4 container">
       <div className="row">
