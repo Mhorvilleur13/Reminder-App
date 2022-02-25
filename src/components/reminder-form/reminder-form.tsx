@@ -50,11 +50,11 @@ const Form = () => {
           placeholder="Remider Title"
         />
       </div>
-      <div className="card mt-3 text-secondary ">
+      <div className="card border-0 mt-3 text-secondary ">
         <h6>What would you like the reminder to say?</h6>
         <textarea id="custom-message" onChange={(e) => setTaskMessage(e.target.value)}></textarea>
       </div>
-      <div className=" card mt-3 text-secondary">
+      <div className="card border-0 mt-3 text-secondary">
         <h6>How would you like to be reminded?</h6>
         <select
           onChange={(e) => setReminderType(reminderTypesArray[Number(e.target.value)])}
@@ -67,11 +67,11 @@ const Form = () => {
           })}
         </select>
       </div>
-      <div className=" card mt-3 text-secondary">
+      <div className="card border-0 mt-3 text-secondary">
         <h6>When would you like to be reminded?</h6>
         <input onChange={(e) => setReminderDate(e.target.value)} type="date" />
       </div>
-      <div className="card mt-3 text-secondary">
+      <div className="card border-0 mt-3 text-secondary">
         <h6>Is this a recurring task?</h6>
         <label htmlFor="yes">Yes</label>
         <input
@@ -88,7 +88,7 @@ const Form = () => {
           onChange={(e) => setRecurring(e.target.checked === true ? false : true)}
         />
       </div>
-      <div className="card mt-3 text-secondary">
+      <div className="card border-0 mt-3 text-secondary">
         <h6>How often would would like to be reminded?</h6>
         <select
           onChange={(e) => setReccuringFrequency(recurringTypes[Number(e.target.value)])}
@@ -100,7 +100,7 @@ const Form = () => {
           })}
         </select>
       </div>
-      <div className="card mt-3 text-secondary">
+      <div className="card border-0 mt-3 text-secondary">
         <h6>How many hours before would you like to be reminded?</h6>
         <input onChange={(e) => setMs(e.target.value)} type="number" className="col-4" />
       </div>
