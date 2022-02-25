@@ -1,24 +1,28 @@
 import React, { FormEvent, useState } from "react";
+
+import { HOURS } from "../../types/time";
 import { ReminderType } from "../../types/reminder-config";
 import { RecurrenceType } from "../../types/recurrence-config";
 import { Task } from "../../types/task";
+
+import { logger } from "../../services/logger";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
   const [taskMessage, setTaskMessage] = useState("");
   const [reminderType, setReminderType] = useState<ReminderType>(ReminderType.SMS);
-  const [tags] = useState([]);
   const [reminderDate, setReminderDate] = useState("");
-  const [recurring, setRecurring] = useState(false);
+  const [isRecurring, setIsRecurring] = useState(false);
   const [reccurenceType, setReccuringFrequency] = useState<RecurrenceType>(RecurrenceType.HOURLY);
-  const [reminderBeforeMs, setMs] = useState("");
+  const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const taskObject: Task = {
+    const formData: Task = {
       taskName: taskName,
-      recurring: recurring,
+      recurring: isRecurring,
       reminderDate: reminderDate,
-      tags: tags,
+      tags: [],
       recurrenceConfig: {
         recurrenceType: reccurenceType,
       },
@@ -28,9 +32,11 @@ const Form = () => {
         reminderTypes: [reminderType],
       },
     };
-    console.log(taskObject);
+    logger.info("Task form submitted", formData);
   };
+
   const recurringTypes = [
+    RecurrenceType.ONCE,
     RecurrenceType.HOURLY,
     RecurrenceType.DAILY,
     RecurrenceType.WEEKLY,
@@ -42,68 +48,90 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form-group">
-      <div>
+      <div className="card border-0 text-secondary">
+        <h6>Task title</h6>
         <input
           onChange={(e) => setTaskName(e.target.value)}
           type="text"
           className="form-control"
-          placeholder="Remider Title"
+          placeholder="E.g. Buy milk"
         />
       </div>
       <div className="card border-0 mt-3 text-secondary ">
         <h6>What would you like the reminder to say?</h6>
-        <textarea id="custom-message" onChange={(e) => setTaskMessage(e.target.value)}></textarea>
+        <textarea id="custom-message" onChange={(e) => setTaskMessage(e.target.value)} className="form-control" />
       </div>
       <div className="card border-0 mt-3 text-secondary">
         <h6>How would you like to be reminded?</h6>
-        <select
-          onChange={(e) => setReminderType(reminderTypesArray[Number(e.target.value)])}
-          id="reminder-type"
-          name="reminder-type"
-          multiple
-        >
-          {reminderTypesArray.map((reminderType, index) => {
-            return <option value={index}>{reminderType}</option>;
-          })}
-        </select>
+        {reminderTypesArray.map((reminderType, index) => {
+          return (
+            <div key={`reminder-type-${reminderType}-${index}`} className="form-check">
+              <input
+                value={index}
+                type="checkbox"
+                className="form-check-input"
+                id={`reminder-type-${reminderType}-${index}`}
+                onChange={(e) => setReminderType(reminderTypesArray[Number(e.target.value)])}
+              />
+              <label className="form-check-label" htmlFor={`reminder-type-${reminderType}-${index}`}>
+                {reminderType}
+              </label>
+            </div>
+          );
+        })}
       </div>
       <div className="card border-0 mt-3 text-secondary">
         <h6>When would you like to be reminded?</h6>
-        <input onChange={(e) => setReminderDate(e.target.value)} type="date" />
-      </div>
-      <div className="card border-0 mt-3 text-secondary">
-        <h6>Is this a recurring task?</h6>
-        <label htmlFor="yes">Yes</label>
-        <input
-          id="yes"
-          value="yes"
-          type="radio"
-          onChange={(e) => setRecurring(e.target.checked === true ? true : false)}
-        />
-        <label htmlFor="no">No</label>
-        <input
-          id="no"
-          value="no"
-          type="radio"
-          onChange={(e) => setRecurring(e.target.checked === true ? false : true)}
-        />
-      </div>
-      <div className="card border-0 mt-3 text-secondary">
-        <h6>How often would would like to be reminded?</h6>
-        <select
-          onChange={(e) => setReccuringFrequency(recurringTypes[Number(e.target.value)])}
-          id="reminder-frequency"
-          name="reminder"
-        >
-          {recurringTypes.map((recurringType, index) => {
-            return <option value={index}>{recurringType}</option>;
-          })}
-        </select>
+        <input onChange={(e) => setReminderDate(e.target.value)} type="date" className="form-control" />
       </div>
       <div className="card border-0 mt-3 text-secondary">
         <h6>How many hours before would you like to be reminded?</h6>
-        <input onChange={(e) => setMs(e.target.value)} type="number" className="col-4" />
+        <input
+          value={reminderBeforeMs / HOURS}
+          onChange={(e) => {
+            const hours = Number(e.target.value) * HOURS;
+            setReminderBeforeMs(hours > 0 ? hours : 0);
+          }}
+          type="number"
+          className="form-control w-25"
+        />
       </div>
+      <div className="card border-0 mt-3 text-secondary">
+        <h6>Is this a recurring task?</h6>
+        <div className="row">
+          <div onClick={() => setIsRecurring(true)}>
+            <input id="is-recurring-yes" checked={isRecurring} readOnly type="radio" />
+            <label className="ml-2" htmlFor="yes">
+              Yes
+            </label>
+          </div>
+          <div onClick={() => setIsRecurring(false)}>
+            <input id="is-recurring-no" checked={!isRecurring} readOnly type="radio" />
+            <label className="ml-2" htmlFor="no">
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+      {isRecurring && (
+        <div className="card border-0 mt-3 text-secondary">
+          <h6>How frequently do you want this task to be scheduled?</h6>
+          <select
+            onChange={(e) => setReccuringFrequency(recurringTypes[Number(e.target.value)])}
+            id="reminder-frequency"
+            name="reminder"
+            className="form-control"
+          >
+            {recurringTypes.map((recurringType, index) => {
+              return (
+                <option key={`recurring-type-${recurringType}-${index}`} value={index}>
+                  {recurringType}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
       <div className="mt-3">
         <button type="submit" className="btn btn-primary">
           Add reminder to your list
