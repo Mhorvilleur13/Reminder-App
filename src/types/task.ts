@@ -10,3 +10,7 @@ export interface Task {
   recurrenceConfig: RecurrenceConfig;
   reminderConfig: ReminderConfig;
 }
+
+export interface Tasks {
+  tasks: Task[];
+}
