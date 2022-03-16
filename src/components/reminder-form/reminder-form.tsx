@@ -4,9 +4,9 @@ import { HOURS } from "../../types/time";
 import { ReminderType } from "../../types/reminder-config";
 import { RecurrenceType } from "../../types/recurrence-config";
 import { Task } from "../../types/task";
-
-
 import { logger } from "../../services/logger";
+import { atom, useRecoilState } from "recoil";
+import { tasksAtom } from "../../state/atoms";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
@@ -16,10 +16,11 @@ const Form = () => {
   const [isRecurring, setIsRecurring] = useState(false);
   const [reccurenceType, setReccuringFrequency] = useState<RecurrenceType>(RecurrenceType.HOURLY);
   const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
+  const [tasks, setTasks] = useRecoilState(tasksAtom);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const formData: Task = {
+    const newTask: Task = {
       taskName: taskName,
       recurring: isRecurring,
       reminderDate: reminderDate,
@@ -33,7 +34,10 @@ const Form = () => {
         reminderTypes: [reminderType],
       },
     };
-    logger.info("Task form submitted", formData);
+    logger.info("Task form submitted", newTask);
+    const newTasks = [...tasks];
+    newTasks.push(newTask);
+    setTasks(newTasks);
   };
 
   const recurringTypes = [
