@@ -12,20 +12,22 @@ const App = () => {
   return (
     <div className="mt-4 container">
       <div className="row">
-        <div className="col">
-          <Link to="/" className="btn btn-primary">
-            Reminders
-          </Link>
+        <div className="col-4">
+          <div className="text-center">
+            <Link to="/tasks" className="btn btn-primary">
+              Reminders
+            </Link>
+          </div>
         </div>
-        <div className="col">
-          <div className="text-right">
-            <Link to="/new" className="btn btn-primary">
+        <div className="col-4">
+          <div className="text-center">
+            <Link to="/" className="btn btn-primary">
               Add Task
             </Link>
           </div>
         </div>
-        <div className="col">
-          <div className="text-right">
+        <div className="col-4">
+          <div className="text-center">
             <Link to="/about" className="btn btn-primary">
               About
             </Link>
@@ -34,8 +36,8 @@ const App = () => {
       </div>
       <div className="mt-4">
         <Routes>
-          <Route path="/" element={<AllTasks />} />
-          <Route path="/new" element={<Form />} />
+          <Route path="/tasks" element={<AllTasks />} />
+          <Route path="/" element={<Form />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
