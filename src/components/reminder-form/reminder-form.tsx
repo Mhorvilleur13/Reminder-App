@@ -19,6 +19,10 @@ const Form = () => {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    const removeDash = (str: string) => {
+      const newStr = str.replace(/-/g, "");
+      return newStr;
+    };
     e.preventDefault();
     const newTask: Task = {
       taskName: taskName,
@@ -37,7 +41,10 @@ const Form = () => {
     logger.info("Task form submitted", newTask);
     const newTasks = [...tasks];
     newTasks.push(newTask);
-    setTasks(newTasks);
+    const sortedTasks = newTasks.sort(
+      (a, b) => parseInt(removeDash(a.reminderDate)) - parseInt(removeDash(b.reminderDate))
+    );
+    setTasks(sortedTasks);
   };
 
   const recurringTypes = [

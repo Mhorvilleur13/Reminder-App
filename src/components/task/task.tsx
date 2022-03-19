@@ -13,12 +13,20 @@ const TaskComponent = ({
   task: {
     taskName,
     reminderConfig: { customMessage },
+    reminderDate,
   },
 }: TaskComponentProps) => {
   return (
-    <div>
-      <h1>{taskName}</h1>
-      <p>{customMessage}</p>
+    <div className="card bg-light mb-4" style={{ width: "18rem" }}>
+      <div className="card-header">
+        <h2>{taskName}</h2>
+      </div>
+      <div className="card-body">
+        <p>{customMessage}</p>
+        <p>
+          <b>Reminder Date:</b> {reminderDate}
+        </p>
+      </div>
     </div>
   );
 };

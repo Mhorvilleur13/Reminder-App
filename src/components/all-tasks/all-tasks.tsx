@@ -10,7 +10,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 const AllTasks = () => {
   const tasks = useRecoilValue(tasksAtom);
   return (
-    <div>
+    <div className="container">
+      <h1 className="text-center mb-3">All Reminders</h1>
       {tasks.map((task: Task, index: any) => {
         return <TaskComponent task={task} london={"paris"} />;
       })}
