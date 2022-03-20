@@ -6,7 +6,8 @@ import { RecurrenceType } from "../../types/recurrence-config";
 import { Task } from "../../types/task";
 import { logger } from "../../services/logger";
 import { atom, useRecoilState } from "recoil";
-import { tasksAtom } from "../../state/atoms";
+import { tasksAtom, upcomingAtom } from "../../state/atoms";
+import moment from "moment";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
@@ -17,6 +18,7 @@ const Form = () => {
   const [reccurenceType, setReccuringFrequency] = useState<RecurrenceType>(RecurrenceType.HOURLY);
   const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
   const [tasks, setTasks] = useRecoilState(tasksAtom);
+  const [upcoming, setUpcoming] = useRecoilState(upcomingAtom);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     const removeDash = (str: string) => {
@@ -39,12 +41,22 @@ const Form = () => {
       },
     };
     logger.info("Task form submitted", newTask);
+    //sorts the tasks in order of date
     const newTasks = [...tasks];
     newTasks.push(newTask);
     const sortedTasks = newTasks.sort(
       (a, b) => parseInt(removeDash(a.reminderDate)) - parseInt(removeDash(b.reminderDate))
     );
     setTasks(sortedTasks);
+    //Check if the task is within the next 7 days
+    const now = moment();
+    const input = moment(newTask.reminderDate);
+    if (input.diff(now, "days") <= 7) {
+      const newUpcoming = [...upcoming];
+      newUpcoming.push(newTask);
+      setUpcoming(newUpcoming);
+      console.log(upcoming);
+    }
   };
 
   const recurringTypes = [
