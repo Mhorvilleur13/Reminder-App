@@ -8,6 +8,8 @@ import { logger } from "../../services/logger";
 import { atom, useRecoilState } from "recoil";
 import { tasksAtom, upcomingAtom } from "../../state/atoms";
 import moment from "moment";
+import dayjs from "dayjs";
+import Relativetime from "dayjs/plugin/relativeTime";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
@@ -49,9 +51,10 @@ const Form = () => {
     );
     setTasks(sortedTasks);
     //Check if the task is within the next 7 days
-    const now = moment();
-    const input = moment(newTask.reminderDate);
-    if (input.diff(now, "days") <= 7) {
+    const now = dayjs();
+    const input = dayjs(newTask.reminderDate);
+    const diffDays = input.diff(now, "day");
+    if (diffDays <= 7) {
       const newUpcoming = [...upcoming];
       newUpcoming.push(newTask);
       setUpcoming(newUpcoming);
