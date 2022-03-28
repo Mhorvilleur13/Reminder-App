@@ -6,7 +6,8 @@ import { useState } from "react";
 import { Task } from "./types/task";
 import AllTasks from "./components/all-tasks/all-tasks";
 import TaskComponent from "./components/task/task";
-import { atom, useRecoilState } from "recoil";
+import { atom, selector, useRecoilState } from "recoil";
+import { tasksAtom } from "./state/atoms";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 
 const App = () => {

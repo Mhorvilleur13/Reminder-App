@@ -1,9 +1,17 @@
+import dayjs from "dayjs";
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { tasksAtom, upcomingAtom } from "../../state/atoms";
+import { selector, useRecoilState, useRecoilValue } from "recoil";
+import { tasksAtom, upcomingTasksState } from "../../state/atoms";
+import { Task } from "../../types/task";
 
-const UpcomingReminders = () => {
-  const upcoming = useRecoilValue(upcomingAtom);
+const UpcomingReminders = (index: any) => {
+  const upcoming = useRecoilValue(upcomingTasksState);
+  const [tasks, setTasks] = useRecoilState(tasksAtom);
+  const removeTask = (index: any) => {
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1);
+    setTasks(newTasks);
+  };
   return (
     <div>
       {upcoming.map((task) => {
@@ -17,6 +25,7 @@ const UpcomingReminders = () => {
               <p>
                 <b>Reminder Date:</b> {task.reminderDate}
               </p>
+              <button onClick={() => removeTask(index)}>Delete Task</button>
             </div>
           </div>
         );
