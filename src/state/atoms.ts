@@ -1,9 +1,6 @@
-import dayjs from "dayjs";
-import isToday from "dayjs/plugin/isToday";
 import { atom, selector, useRecoilState } from "recoil";
 import { Task } from "../types/task";
-
-dayjs.extend(isToday);
+import dayjs from "../services/timeUtil";
 
 export const tasksAtom = atom<Task[]>({
   key: "tasksAtom",
