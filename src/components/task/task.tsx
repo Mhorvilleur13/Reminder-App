@@ -29,7 +29,7 @@ const TaskComponent = (
     setTasks(newTasks);
   };
   return (
-    <div className="card bg-light mb-4" style={{ width: "18rem" }}>
+    <div className="card bg-light mb-4 mx-auto" style={{ width: "18rem" }}>
       <div className="card-header">
         <h2>{taskName}</h2>
       </div>
