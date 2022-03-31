@@ -6,12 +6,15 @@ import { useState } from "react";
 import { Task } from "./types/task";
 import AllTasks from "./components/all-tasks/all-tasks";
 import TaskComponent from "./components/task/task";
-import { atom, selector, useRecoilState } from "recoil";
-import { tasksAtom } from "./state/atoms";
+import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import { tasksAtom, todayTaskState, upcomingTasksState } from "./state/atoms";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 import TodaysReminders from "./components/todays-reminders/todays-reminder";
 
 const App = () => {
+  const tasks = useRecoilValue(tasksAtom);
+  const todayReminders = useRecoilValue(todayTaskState);
+  const upcoming = useRecoilValue(upcomingTasksState);
   return (
     <div className="mt-4 container">
       <div className="row">
@@ -25,21 +28,23 @@ const App = () => {
         <div className="col">
           <div className="text-center">
             <Link to="/tasks" className="btn btn-primary">
-              Reminders
+              All Reminders <span className="badge badge-light text-dark">{tasks.length > 0 && tasks.length}</span>
             </Link>
           </div>
         </div>
         <div className="col">
           <div className="text-center">
             <Link to="/today" className="btn btn-primary">
-              Today&apos;s Tasks
+              Today&apos;s Tasks{" "}
+              <span className="badge badge-light text-dark">{todayReminders.length > 0 && todayReminders.length}</span>
             </Link>
           </div>
         </div>
         <div className="col">
           <div className="text-center">
             <Link to="/upcoming" className="btn btn-primary">
-              Upcoming Tasks
+              Upcoming Tasks{" "}
+              <span className="badge badge-light text-dark">{upcoming.length > 0 && upcoming.length}</span>
             </Link>
           </div>
         </div>
