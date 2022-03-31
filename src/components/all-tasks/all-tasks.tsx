@@ -6,6 +6,7 @@ import { Tag } from "../../types/tag";
 import TaskComponent from "../task/task";
 import { tasksAtom } from "../../state/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { Link } from "react-router-dom";
 
 export interface removeTaskProp {
   removeTask(index: string): void;
@@ -16,9 +17,24 @@ const AllTasks = () => {
   return (
     <div className="container">
       <h1 className="text-center mb-3">All Reminders</h1>
-      {tasks.map((task: Task, index: any, removeTask) => {
-        return <TaskComponent task={task} london={"paris"} />;
-      })}
+      {tasks.length === 0 ? (
+        <div className="card mt-5 bg-light mx-auto" style={{ width: "18rem" }}>
+          <div className="card-header">
+            <h2>No Reminders</h2>
+          </div>
+          <div className="card-body">
+            <p>You have no reminders. To add a reminder, click below.</p>
+            <Link to="/" className="btn btn-primary">
+              {" "}
+              Add Task
+            </Link>
+          </div>
+        </div>
+      ) : (
+        tasks.map((task: Task, index: any, removeTask) => {
+          return <TaskComponent task={task} london={"paris"} />;
+        })
+      )}
     </div>
   );
 };

@@ -16,11 +16,18 @@ const UpcomingReminders = (index: any) => {
     <div>
       <h1 className="text-center mb-3">Upcoming Reminders</h1>
       {upcoming.length === 0 ? (
-        <h1 className="text-center mt-5">You have no tasks in the next 7 days</h1>
+        <div className="card mt-5 bg-light mx-auto" style={{ width: "18rem" }}>
+          <div className="card-header">
+            <h2>No Upcoming Tasks</h2>
+          </div>
+          <div className="card-body">
+            <p>You have no tasks in the next 7 days. Relax!</p>
+          </div>
+        </div>
       ) : (
         upcoming.map((task) => {
           return (
-            <div className="card bg-light mb-4" style={{ width: "18rem" }}>
+            <div className="card bg-light mx-auto  mb-4" style={{ width: "18rem" }}>
               <div className="card-header">
                 <h2>{task.taskName}</h2>
               </div>

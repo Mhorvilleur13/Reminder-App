@@ -14,11 +14,18 @@ const TodaysReminders = (index: any) => {
     <div>
       <h1 className="text-center">Todays Reminders</h1>
       {todayReminders.length === 0 ? (
-        <h1 className="text-center mt-5">No Tasks Today</h1>
+        <div className="card mt-5 bg-light mx-auto" style={{ width: "18rem" }}>
+          <div className="card-header">
+            <h2>No Tasks Today</h2>
+          </div>
+          <div className="card-body">
+            <p>You have no tasks today. Sit back and chill</p>
+          </div>
+        </div>
       ) : (
         todayReminders.map((task) => {
           return (
-            <div className="card bg-light mb-4" style={{ width: "18rem" }}>
+            <div className="card bg-light mx-auto mb-4" style={{ width: "18rem" }}>
               <div className="card-header">
                 <h2>{task.taskName}</h2>
               </div>

@@ -17,15 +17,15 @@ const App = () => {
       <div className="row">
         <div className="col">
           <div className="text-center">
-            <Link to="/tasks" className="btn btn-primary">
-              Reminders
+            <Link to="/" className="btn btn-primary">
+              Add Task
             </Link>
           </div>
         </div>
         <div className="col">
           <div className="text-center">
-            <Link to="/" className="btn btn-primary">
-              Add Task
+            <Link to="/tasks" className="btn btn-primary">
+              Reminders
             </Link>
           </div>
         </div>
