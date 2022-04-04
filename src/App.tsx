@@ -18,42 +18,23 @@ const App = () => {
   return (
     <div className="mt-4 container">
       <div className="row">
-        <div className="col">
-          <div className="text-center">
-            <Link to="/" className="btn btn-primary">
-              Add Task
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="text-center">
-            <Link to="/tasks" className="btn btn-primary">
-              All Reminders <span className="badge badge-light text-dark">{tasks.length > 0 && tasks.length}</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="text-center">
-            <Link to="/today" className="btn btn-primary">
-              Today&apos;s Tasks{" "}
-              <span className="badge badge-light text-dark">{todayReminders.length > 0 && todayReminders.length}</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="text-center">
-            <Link to="/upcoming" className="btn btn-primary">
-              Upcoming Tasks{" "}
-              <span className="badge badge-light text-dark">{upcoming.length > 0 && upcoming.length}</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="text-center">
-            <Link to="/about" className="btn btn-primary">
-              About
-            </Link>
-          </div>
+        <div className="d-grid gap-2 col-6 mx-auto">
+          <Link to="/" className="btn btn-primary btn-sm">
+            Add Task
+          </Link>
+          <Link to="/tasks" className="btn btn-primary btn-sm">
+            All Reminders <span className="badge badge-light text-dark">{tasks.length > 0 && tasks.length}</span>
+          </Link>
+          <Link to="/today" className="btn btn-primary btn-sm">
+            Today&apos;s Tasks{" "}
+            <span className="badge badge-light text-dark">{todayReminders.length > 0 && todayReminders.length}</span>
+          </Link>
+          <Link to="/upcoming" className="btn btn-primary btn-sm">
+            Upcoming Tasks <span className="badge badge-light text-dark">{upcoming.length > 0 && upcoming.length}</span>
+          </Link>
+          <Link to="/about" className="btn btn-primary btn-sm">
+            About
+          </Link>
         </div>
       </div>
       <div className="mt-4">
