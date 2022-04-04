@@ -10,13 +10,14 @@ import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
 import { tasksAtom, todayTaskState, upcomingTasksState } from "./state/atoms";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 import TodaysReminders from "./components/todays-reminders/todays-reminder";
+import "./App.css";
 
 const App = () => {
   const tasks = useRecoilValue(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
   const upcoming = useRecoilValue(upcomingTasksState);
   return (
-    <div className="mt-4 container">
+    <div className="mt-4 container page-container">
       <div className="row">
         <div className="d-grid gap-2 col-6 mx-auto">
           <Link to="/" className="btn btn-primary btn-sm">
