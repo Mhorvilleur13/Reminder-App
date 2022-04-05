@@ -7,6 +7,7 @@ import TaskComponent from "../task/task";
 import { tasksAtom } from "../../state/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
+import "../../index.css";
 
 export interface removeTaskProp {
   removeTask(index: string): void;
@@ -18,7 +19,7 @@ const AllTasks = () => {
     <div className="container">
       <h1 className="text-center mb-3">All Reminders</h1>
       {tasks.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto" style={{ width: "18rem" }}>
+        <div className="card mt-5 bg-light mx-auto card-class">
           <div className="card-header">
             <h2>No Reminders</h2>
           </div>

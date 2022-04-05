@@ -10,7 +10,7 @@ import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
 import { tasksAtom, todayTaskState, upcomingTasksState } from "./state/atoms";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 import TodaysReminders from "./components/todays-reminders/todays-reminder";
-import "./App.css";
+import "./index.css";
 
 const App = () => {
   const tasks = useRecoilValue(tasksAtom);

@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tasksAtom, todayTaskState } from "../../state/atoms";
+import "../../index.css";
 
 const TodaysReminders = (index: any) => {
   const todayReminders = useRecoilValue(todayTaskState);
@@ -14,7 +15,7 @@ const TodaysReminders = (index: any) => {
     <div>
       <h1 className="text-center">Todays Reminders</h1>
       {todayReminders.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto" style={{ width: "18rem" }}>
+        <div className="card mt-5 bg-light mx-auto card-class">
           <div className="card-header">
             <h2>No Tasks Today</h2>
           </div>
@@ -25,7 +26,7 @@ const TodaysReminders = (index: any) => {
       ) : (
         todayReminders.map((task) => {
           return (
-            <div className="card bg-light mx-auto mb-4" style={{ width: "18rem" }}>
+            <div className="card bg-light mx-auto mb-4 card-class">
               <div className="card-header">
                 <h2>{task.taskName}</h2>
               </div>

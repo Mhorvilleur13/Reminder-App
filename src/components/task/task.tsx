@@ -6,6 +6,7 @@ import { Tag } from "../../types/tag";
 import { removeTaskProp } from "../all-tasks/all-tasks";
 import { useRecoilState } from "recoil";
 import { tasksAtom } from "../../state/atoms";
+import "../../index.css";
 
 interface TaskComponentProps {
   task: Task;
@@ -29,7 +30,7 @@ const TaskComponent = (
     setTasks(newTasks);
   };
   return (
-    <div className="card bg-light mb-4 mx-auto" style={{ width: "18rem" }}>
+    <div className="card bg-light mb-4 mx-auto card-class">
       <div className="card-header">
         <h2>{taskName}</h2>
       </div>
