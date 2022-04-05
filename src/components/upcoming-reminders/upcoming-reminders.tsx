@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { selector, useRecoilState, useRecoilValue } from "recoil";
 import { tasksAtom, upcomingTasksState } from "../../state/atoms";
 import { Task } from "../../types/task";
+import "../../index.css";
 
 const UpcomingReminders = (index: any) => {
   const upcoming = useRecoilValue(upcomingTasksState);
@@ -16,7 +17,7 @@ const UpcomingReminders = (index: any) => {
     <div>
       <h1 className="text-center mb-3">Upcoming Reminders</h1>
       {upcoming.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto" style={{ width: "18rem" }}>
+        <div className="card mt-5 bg-light mx-auto card-class">
           <div className="card-header">
             <h2>No Upcoming Tasks</h2>
           </div>
@@ -27,7 +28,7 @@ const UpcomingReminders = (index: any) => {
       ) : (
         upcoming.map((task) => {
           return (
-            <div className="card bg-light mx-auto  mb-4" style={{ width: "18rem" }}>
+            <div className="card bg-light mx-auto  mb-4 card-class">
               <div className="card-header">
                 <h2>{task.taskName}</h2>
               </div>
