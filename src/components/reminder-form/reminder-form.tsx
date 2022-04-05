@@ -1,5 +1,4 @@
 import React, { FormEvent, useState, useRef } from "react";
-
 import { HOURS } from "../../types/time";
 import { ReminderType } from "../../types/reminder-config";
 import { RecurrenceType } from "../../types/recurrence-config";
@@ -8,6 +7,7 @@ import { logger } from "../../services/logger";
 import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
 import { tasksAtom } from "../../state/atoms";
 import { useForm } from "react-hook-form";
+import { createWatchCompilerHost } from "typescript";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
@@ -25,7 +25,7 @@ const Form = () => {
       const newStr = str.replace(/-/g, "");
       return newStr;
     };
-    //_data.preventDefault();
+    _e.preventDefault();
     const newTask: Task = {
       taskName: taskName,
       recurring: isRecurring,

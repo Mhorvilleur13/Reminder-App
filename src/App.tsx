@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import About from "./components/about/about";
 import Form from "./components/reminder-form/reminder-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Task } from "./types/task";
 import AllTasks from "./components/all-tasks/all-tasks";
 import TaskComponent from "./components/task/task";
@@ -16,6 +16,15 @@ const App = () => {
   const tasks = useRecoilValue(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
   const upcoming = useRecoilValue(upcomingTasksState);
+  useEffect(() => {
+    chrome.storage.sync.set({ myLine: "value" }, function () {
+      console.log("Value is set to ");
+    });
+
+    chrome.storage.sync.get(["key"], function (result) {
+      console.log("Value currently is " + result.key);
+    });
+  });
   return (
     <div className="mt-4 container page-container">
       <div className="row">
