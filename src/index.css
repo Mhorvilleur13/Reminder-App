@@ -1,5 +1,6 @@
 .page-container {
     width: 300px;
+    max-height: 600px;
 }
 
 .card-class {
