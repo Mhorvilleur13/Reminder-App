@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import { RecurrenceType } from "../../types/recurrence-config";
-import { ReminderType } from "../../types/reminder-config";
+import React from "react";
 import { Task } from "../../types/task";
-import { Tag } from "../../types/tag";
 import TaskComponent from "../task/task";
 import { tasksAtom } from "../../state/atoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
 import "../../index.css";
 
@@ -32,7 +29,7 @@ const AllTasks = () => {
           </div>
         </div>
       ) : (
-        tasks.map((task: Task, index: any, removeTask) => {
+        tasks.map((task: Task) => {
           return <TaskComponent task={task} london={"paris"} />;
         })
       )}

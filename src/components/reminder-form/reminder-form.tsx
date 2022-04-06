@@ -1,11 +1,11 @@
-import React, { FormEvent, useState, useRef } from "react";
+import React, { useState } from "react";
 
 import { HOURS } from "../../types/time";
 import { ReminderType } from "../../types/reminder-config";
 import { RecurrenceType } from "../../types/recurrence-config";
 import { Task } from "../../types/task";
 import { logger } from "../../services/logger";
-import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { tasksAtom } from "../../state/atoms";
 import { useForm } from "react-hook-form";
 
@@ -18,7 +18,7 @@ const Form = () => {
   const [reccurenceType, setReccuringFrequency] = useState<RecurrenceType>(RecurrenceType.HOURLY);
   const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
   const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const { register, handleSubmit, reset } = useForm();
+  const { handleSubmit } = useForm();
 
   const onSubmit = (_data: any, _e: any) => {
     const removeDash = (str: string) => {
