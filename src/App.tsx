@@ -11,20 +11,12 @@ import { tasksAtom, todayTaskState, upcomingTasksState } from "./state/atoms";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 import TodaysReminders from "./components/todays-reminders/todays-reminder";
 import "./index.css";
+import { useChromeStorageLocal } from "use-chrome-storage";
 
 const App = () => {
   const tasks = useRecoilValue(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
   const upcoming = useRecoilValue(upcomingTasksState);
-  useEffect(() => {
-    chrome.storage.sync.set({ myLine: "value" }, function () {
-      console.log("Value is set to ");
-    });
-
-    chrome.storage.sync.get(["key"], function (result) {
-      console.log("Value currently is " + result.key);
-    });
-  });
   return (
     <div className="mt-4 container page-container">
       <div className="row">

@@ -19,7 +19,6 @@ const Form = () => {
   const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const { register, handleSubmit, reset } = useForm();
-
   const onSubmit = (_data: any, _e: any) => {
     const removeDash = (str: string) => {
       const newStr = str.replace(/-/g, "");
@@ -41,6 +40,21 @@ const Form = () => {
       },
     };
     logger.info("Task form submitted", newTask);
+    const getTasks = () => {
+      const tasks = window.localStorage.getItem("tasks");
+      if (!tasks) {
+        return [];
+      }
+
+      return JSON.parse(tasks);
+    };
+    const updateTasks = (newTasks: any) => {
+      const [tasks, setLocalTasks] = useState(getTasks());
+      const stringifiedTasks = JSON.stringify(newTasks);
+      window.localStorage.setItem(tasks, stringifiedTasks);
+      setLocalTasks(newTasks);
+      return [tasks];
+    };
     //sorts the tasks in order of date
     const newTasks = [...tasks];
     newTasks.push(newTask);
