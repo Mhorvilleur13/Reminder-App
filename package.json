@@ -29,6 +29,7 @@
     "web-vitals": "2.1.4"
   },
   "devDependencies": {
+    "@types/chrome": "0.0.180",
     "@types/jest": "27.4.0",
     "@types/node": "16.11.22",
     "@types/react": "17.0.39",
