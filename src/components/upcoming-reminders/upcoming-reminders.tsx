@@ -1,14 +1,12 @@
-import dayjs from "dayjs";
-import React, { useState } from "react";
-import { selector, useRecoilState, useRecoilValue } from "recoil";
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { tasksAtom, upcomingTasksState } from "../../state/atoms";
-import { Task } from "../../types/task";
 import "../../index.css";
 
-const UpcomingReminders = (index: any) => {
+const UpcomingReminders = () => {
   const upcoming = useRecoilValue(upcomingTasksState);
   const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const removeTask = (index: any) => {
+  const removeTask = (index: number) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
     setTasks(newTasks);
@@ -26,7 +24,7 @@ const UpcomingReminders = (index: any) => {
           </div>
         </div>
       ) : (
-        upcoming.map((task) => {
+        upcoming.map((task, index) => {
           return (
             <div className="card bg-light mx-auto  mb-4 card-class">
               <div className="card-header">

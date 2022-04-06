@@ -1,9 +1,5 @@
 import React from "react";
-import { RecurrenceType } from "../../types/recurrence-config";
-import { ReminderType } from "../../types/reminder-config";
-import { Task, Tasks } from "../../types/task";
-import { Tag } from "../../types/tag";
-import { removeTaskProp } from "../all-tasks/all-tasks";
+import { Task } from "../../types/task";
 import { useRecoilState } from "recoil";
 import { tasksAtom } from "../../state/atoms";
 import "../../index.css";
@@ -21,10 +17,10 @@ const TaskComponent = (
       reminderDate,
     },
   }: TaskComponentProps,
-  index: any
+  index: number
 ) => {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const removeTask = (index: any) => {
+  const removeTask = (index: number) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
     setTasks(newTasks);
