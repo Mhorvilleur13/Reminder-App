@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import About from "./components/about/about";
 import Form from "./components/reminder-form/reminder-form";
@@ -16,6 +16,14 @@ const App = () => {
   const tasks = useRecoilValue(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
   const upcoming = useRecoilValue(upcomingTasksState);
+  useEffect(() => {
+    chrome.storage.sync.set({ key: "value" }, function () {
+      console.log("Value is set to");
+    });
+    chrome.storage.sync.get(["key"], function (result) {
+      console.log("Value currently is " + result.key);
+    });
+  }, []);
   return (
     <div className="mt-4 container page-container">
       <div className="row">
