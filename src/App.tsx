@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import "./index.css";
 import { tasksAtom, todayTaskState, upcomingTasksState } from "./state/atoms";
@@ -14,30 +14,39 @@ import TodaysReminders from "./components/todays-reminders/todays-reminder";
 import { syncGet, syncSet } from "./services/chrome";
 
 const App = () => {
-  const tasks = useRecoilValue(tasksAtom);
+  const [tasks, setTasks] = useRecoilState(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
   const upcoming = useRecoilValue(upcomingTasksState);
 
   useEffect(() => {
-    const key = "key";
-    const value = "value";
-
-    const testChromeStorage = async () => {
+    const getChromeStorage = async () => {
       try {
-        syncSet(key, value, () => {
-          logger.info(`Value of ${key} was set to ${value}`);
-        });
-
-        syncGet(key, (result) => {
-          logger.info(`Value of ${key} currently is ${result[key]}`);
+        chrome.storage.sync.get("Tasks", function (result) {
+          console.log(result.Tasks);
+          setTasks(result.Tasks);
         });
       } catch (error) {
         logger.error(error);
       }
     };
 
-    testChromeStorage();
+    getChromeStorage();
   }, []);
+
+  useEffect(() => {
+    console.log(tasks);
+    const setChromeStorage = async () => {
+      try {
+        chrome.storage.sync.set({ Tasks: tasks }, function () {
+          console.log(tasks);
+        });
+      } catch (error) {
+        logger.error(error);
+      }
+    };
+
+    setChromeStorage();
+  }, [tasks]);
 
   return (
     <div className="mt-4 container page-container">
