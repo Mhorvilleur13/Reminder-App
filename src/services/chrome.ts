@@ -1,6 +1,8 @@
 /*global chrome*/
 
-export const syncSet = (key: string, value: string, callback: () => void) => {
+import { Task } from "../types/task";
+
+export const syncSet = (key: string, value: Task[], callback: () => void) => {
   chrome.storage.sync.set({ [key]: value }, callback);
 };
 
