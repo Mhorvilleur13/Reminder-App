@@ -14,6 +14,7 @@ const Form = () => {
   const [taskMessage, setTaskMessage] = useState("");
   const [reminderType, setReminderType] = useState<ReminderType>(ReminderType.SMS);
   const [reminderDate, setReminderDate] = useState("");
+  const [reminderTime, setReminderTime] = useState("");
   const [isRecurring, setIsRecurring] = useState(false);
   const [reccurenceType, setReccuringFrequency] = useState<RecurrenceType>(RecurrenceType.HOURLY);
   const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
@@ -30,6 +31,7 @@ const Form = () => {
       taskName: taskName,
       recurring: isRecurring,
       reminderDate: reminderDate,
+      reminderTime: reminderTime,
       tags: [],
       recurrenceConfig: {
         recurrenceType: reccurenceType,
@@ -47,6 +49,7 @@ const Form = () => {
     const sortedTasks = newTasks.sort(
       (a, b) => parseInt(removeDash(a.reminderDate)) - parseInt(removeDash(b.reminderDate))
     );
+    console.log(sortedTasks);
     setTasks(sortedTasks);
     _e.target.reset();
   };
@@ -100,6 +103,10 @@ const Form = () => {
           <div className=" border-0 mt-3 text-secondary">
             <h6>When would you like to be reminded?</h6>
             <input onChange={(e) => setReminderDate(e.target.value)} type="date" className="form-control" />
+          </div>
+          <div className=" border-0 mt-3 text-secondary">
+            <h6>What time would you like to be reminded?</h6>
+            <input onChange={(e) => setReminderTime(e.target.value)} type="time" className="form-control" />
           </div>
           <div className=" border-0 mt-3 text-secondary">
             <h6>How many hours before would you like to be reminded?</h6>

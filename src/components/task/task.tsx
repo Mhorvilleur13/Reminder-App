@@ -15,6 +15,7 @@ const TaskComponent = (
       taskName,
       reminderConfig: { customMessage },
       reminderDate,
+      reminderTime,
     },
   }: TaskComponentProps,
   index: number
@@ -34,6 +35,9 @@ const TaskComponent = (
         <p>{customMessage}</p>
         <p>
           <b>Reminder Date:</b> {reminderDate}
+        </p>
+        <p>
+          <b>Reminder Time:</b> {reminderTime}
         </p>
         <button onClick={() => removeTask(index)}>Delete Task</button>
       </div>
