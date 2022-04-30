@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { missedTaskState, tasksAtom, upcomingTasksState } from "../../state/atoms";
+import { missedTaskState, tasksAtom, todayTaskState } from "../../state/atoms";
 import "../../index.css";
 
-const UpcomingReminders = () => {
-  const upcoming = useRecoilValue(upcomingTasksState);
+const MissedTasks = () => {
+  const missedTasks = useRecoilValue(missedTaskState);
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const removeTask = (index: number) => {
     const newTasks = [...tasks];
@@ -13,20 +13,20 @@ const UpcomingReminders = () => {
   };
   return (
     <div>
-      <h1 className="text-center mb-3">Upcoming Reminders</h1>
-      {upcoming.length === 0 ? (
+      <h1 className="text-center">Missed Tasks</h1>
+      {missedTasks.length === 0 ? (
         <div className="card mt-5 bg-light mx-auto card-class">
           <div className="card-header">
-            <h2>No Upcoming Tasks</h2>
+            <h2>No Missed Tasks</h2>
           </div>
           <div className="card-body">
-            <p>You have no tasks in the next 7 days. Relax!</p>
+            <p>You have no misses tasks. Chill out</p>
           </div>
         </div>
       ) : (
-        upcoming.map((task, index) => {
+        missedTasks.map((task, index) => {
           return (
-            <div className="card bg-light mx-auto  mb-4 card-class">
+            <div className="card bg-light mx-auto mb-4 card-class">
               <div className="card-header">
                 <h2>{task.taskName}</h2>
               </div>
@@ -48,4 +48,4 @@ const UpcomingReminders = () => {
   );
 };
 
-export default UpcomingReminders;
+export default MissedTasks;
