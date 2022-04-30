@@ -50,9 +50,7 @@ const Form = () => {
     const sortedTasks = newTasks.sort(
       (a, b) => parseInt(removeDash(a.reminderDate)) - parseInt(removeDash(b.reminderDate))
     );
-    console.log(sortedTasks);
     setTasks(sortedTasks);
-    console.log(dayjs().format("H:m"));
     _e.target.reset();
   };
 
