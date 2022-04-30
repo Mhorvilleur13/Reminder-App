@@ -35,6 +35,9 @@ const UpcomingReminders = () => {
                 <p>
                   <b>Reminder Date:</b> {task.reminderDate}
                 </p>
+                <p>
+                  <b>Reminder Time:</b> {task.reminderTime}
+                </p>
                 <button onClick={() => removeTask(index)}>Delete Task</button>
               </div>
             </div>
