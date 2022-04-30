@@ -12,7 +12,6 @@ import AllTasks from "./components/all-tasks/all-tasks";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 import TodaysReminders from "./components/todays-reminders/todays-reminder";
 import MissedTasks from "./components/missed-tasks/missed-tasks";
-import { syncGet, syncSet } from "./services/chrome";
 
 const App = () => {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
@@ -31,7 +30,6 @@ const App = () => {
         logger.error(error);
       }
     };
-
     getChromeStorage();
   }, []);
 
