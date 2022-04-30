@@ -5,9 +5,10 @@ import { ReminderType } from "../../types/reminder-config";
 import { RecurrenceType } from "../../types/recurrence-config";
 import { Task } from "../../types/task";
 import { logger } from "../../services/logger";
-import { useRecoilState } from "recoil";
-import { tasksAtom } from "../../state/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { missedTaskState, tasksAtom } from "../../state/atoms";
 import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
@@ -51,6 +52,7 @@ const Form = () => {
     );
     console.log(sortedTasks);
     setTasks(sortedTasks);
+    console.log(dayjs().format("H:m"));
     _e.target.reset();
   };
 

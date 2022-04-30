@@ -16,7 +16,7 @@ export const upcomingTasksState = selector({
     taskList.forEach((task) => {
       const input = dayjs(task.reminderDate);
       const diffDays = input.diff(now, "day");
-      if (diffDays <= 7) {
+      if (diffDays <= 7 && input.isAfter(dayjs())) {
         filter.push(task);
       }
     });
@@ -35,5 +35,21 @@ export const todayTaskState = selector({
       }
     });
     return todayFilter;
+  },
+});
+
+export const missedTaskState = selector({
+  key: "missedTaskState",
+  get: ({ get }) => {
+    const taskList = get(tasksAtom);
+    const missedFilter: Task[] = [];
+    taskList.forEach((task) => {
+      if (dayjs().isAfter(dayjs(task.reminderDate))) {
+        if (dayjs().format("H:m") > task.reminderTime) {
+          missedFilter.push(task);
+        }
+      }
+    });
+    return missedFilter;
   },
 });
