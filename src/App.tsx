@@ -1,40 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import "./index.css";
 import { missedTaskState, tasksAtom, todayTaskState, upcomingTasksState } from "./state/atoms";
 import { logger } from "./services/logger";
-
 import About from "./components/about/about";
 import Form from "./components/reminder-form/reminder-form";
 import AllTasks from "./components/all-tasks/all-tasks";
 import UpcomingReminders from "./components/upcoming-reminders/upcoming-reminders";
 import TodaysReminders from "./components/todays-reminders/todays-reminder";
 import MissedTasks from "./components/missed-tasks/missed-tasks";
+import { resourceLimits } from "worker_threads";
 
 const App = () => {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
   const upcoming = useRecoilValue(upcomingTasksState);
   const missed = useRecoilValue(missedTaskState);
-
+  const ready = useRef(false);
   useEffect(() => {
-    const getChromeStorage = async () => {
+    console.log("getting tasks");
+    const getChromeStorage = () => {
       try {
         chrome.storage.sync.get("Tasks", function (result) {
+          console.log("it works");
           console.log(result.Tasks);
-          setTasks(result.Tasks);
+          ready.current = true;
+          if (result.Tasks) {
+            setTasks(result.Tasks);
+          }
         });
       } catch (error) {
         logger.error(error);
       }
     };
     getChromeStorage();
+    chrome.storage.onChanged.addListener(function (changes, namespace) {
+      // remove for loop and check if changes.Tasks then set tasks to changes.Tasks.newValue
+      for (const [key, { oldValue, newValue }] of Object.entries(changes)) {
+        console.log(
+          `Storage key "${key}" in namespace "${namespace}" changed.`,
+          `Old value was "${oldValue}", new value is "${newValue}".`
+        );
+      }
+    });
+    const interval = setInterval(getChromeStorage, 60000);
+    // clean up interval and remove onchanged listener
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    console.log(tasks);
+    if (!ready.current) {
+      return;
+    }
+    console.log(`setting tasks: ${tasks}`);
     const setChromeStorage = async () => {
       try {
         chrome.storage.sync.set({ Tasks: tasks }, function () {
