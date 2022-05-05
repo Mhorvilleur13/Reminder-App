@@ -3,6 +3,7 @@ import { Task } from "../../types/task";
 import { useRecoilState } from "recoil";
 import { tasksAtom } from "../../state/atoms";
 import "../../index.css";
+import dayjs from "dayjs";
 
 interface TaskComponentProps {
   task: Task;
@@ -33,6 +34,7 @@ const TaskComponent = (
       </div>
       <div className="card-body">
         <p>{customMessage}</p>
+        <p>{dayjs(reminderDate).format("dddd")}</p>
         <p>
           <b>Reminder Date:</b> {reminderDate}
         </p>

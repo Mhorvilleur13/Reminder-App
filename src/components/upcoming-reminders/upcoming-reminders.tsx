@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { missedTaskState, tasksAtom, upcomingTasksState } from "../../state/atoms";
 import "../../index.css";
+import dayjs from "dayjs";
 
 const UpcomingReminders = () => {
   const upcoming = useRecoilValue(upcomingTasksState);
@@ -32,6 +33,7 @@ const UpcomingReminders = () => {
               </div>
               <div className="card-body">
                 <p>{task.reminderConfig.customMessage}</p>
+                <p>{dayjs(task.reminderDate).format("dddd")}</p>
                 <p>
                   <b>Reminder Date:</b> {task.reminderDate}
                 </p>
