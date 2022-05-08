@@ -32,13 +32,12 @@ const UpcomingReminders = () => {
                 <h2>{task.taskName}</h2>
               </div>
               <div className="card-body">
-                <p>{task.reminderConfig.customMessage}</p>
-                <p>{dayjs(task.reminderDate).format("dddd")}</p>
+                <h5 className="card-title">{task.reminderConfig.customMessage}</h5>
                 <p>
-                  <b>Reminder Date:</b> {task.reminderDate}
+                  <b>Date:</b> {dayjs(task.reminderDate).format("dddd, MMM D")}
                 </p>
                 <p>
-                  <b>Reminder Time:</b> {task.reminderTime}
+                  <b> Time:</b> {task.reminderTime}
                 </p>
                 <button onClick={() => removeTask(index)}>Delete Task</button>
               </div>
