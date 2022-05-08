@@ -28,18 +28,17 @@ const TaskComponent = (
     setTasks(newTasks);
   };
   return (
-    <div className="card bg-light mb-4 mx-auto card-class">
+    <div className="card  mb-4 mx-auto card-class">
       <div className="card-header">
         <h2>{taskName}</h2>
       </div>
       <div className="card-body">
-        <p>{customMessage}</p>
-        <p>{dayjs(reminderDate).format("dddd")}</p>
+        <h5 className="card-title">{customMessage}</h5>
         <p>
-          <b>Reminder Date:</b> {reminderDate}
+          <b> Date:</b> {dayjs(reminderDate).format("dddd, MMM D")}
         </p>
         <p>
-          <b>Reminder Time:</b> {reminderTime}
+          <b> Time:</b> {reminderTime}
         </p>
         <button onClick={() => removeTask(index)}>Delete Task</button>
       </div>
