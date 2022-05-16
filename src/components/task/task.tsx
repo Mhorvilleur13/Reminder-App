@@ -1,13 +1,13 @@
 import React from "react";
 import { Task } from "../../types/task";
 import { useRecoilState } from "recoil";
-import { tasksAtom } from "../../state/atoms";
+import { completedTaskAtom, tasksAtom } from "../../state/atoms";
 import "../../index.css";
 import dayjs from "dayjs";
 
 interface TaskComponentProps {
   task: Task;
-  london: string;
+  completeTask: (index: number) => void;
 }
 
 const TaskComponent = (
@@ -18,6 +18,7 @@ const TaskComponent = (
       reminderDate,
       reminderTime,
     },
+    completeTask,
   }: TaskComponentProps,
   index: number
 ) => {
@@ -35,12 +36,13 @@ const TaskComponent = (
       <div className="card-body">
         <h5 className="card-title">{customMessage}</h5>
         <p>
-          <b> Date:</b> {dayjs(reminderDate).format("dddd, MMM D")}
+          <b> Date:</b> {dayjs(reminderDate).format("dddd, MMM D, YYYY")}
         </p>
         <p>
           <b> Time:</b> {reminderTime}
         </p>
         <button onClick={() => removeTask(index)}>Delete Task</button>
+        <button onClick={() => completeTask(index)}></button>
       </div>
     </div>
   );
