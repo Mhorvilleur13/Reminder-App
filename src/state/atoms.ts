@@ -7,6 +7,11 @@ export const tasksAtom = atom<Task[]>({
   default: [],
 });
 
+export const completedTaskAtom = atom<Task[]>({
+  key: "completedTaskAtom",
+  default: [],
+});
+
 export const upcomingTasksState = selector({
   key: "upcomingTasksState",
   get: ({ get }) => {
@@ -51,5 +56,19 @@ export const missedTaskState = selector({
       }
     });
     return missedFilter;
+  },
+});
+
+export const recurringTaskState = selector({
+  key: "recurringTaskState",
+  get: ({ get }) => {
+    const taskList = get(tasksAtom);
+    const recurringFilter: Task[] = [];
+    taskList.forEach((task) => {
+      if (task.recurring === true) {
+        recurringFilter.push(task);
+      }
+    });
+    return recurringFilter;
   },
 });

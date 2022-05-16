@@ -5,12 +5,9 @@ import { tasksAtom } from "../../state/atoms";
 import { useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
 import "../../index.css";
+import { CompleteTaskProp } from "../../App";
 
-export interface removeTaskProp {
-  removeTask(index: string): void;
-}
-
-const AllTasks = () => {
+const AllTasks = ({ completeTask }: CompleteTaskProp) => {
   const tasks = useRecoilValue(tasksAtom);
   return (
     <div className="container">
@@ -30,7 +27,7 @@ const AllTasks = () => {
         </div>
       ) : (
         tasks.map((task: Task) => {
-          return <TaskComponent task={task} london={"paris"} />;
+          return <TaskComponent task={task} completeTask={completeTask} />;
         })
       )}
     </div>

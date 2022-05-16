@@ -34,7 +34,7 @@ const MissedTasks = () => {
               <div className="card-body">
                 <h5 className="card-title">{task.reminderConfig.customMessage}</h5>
                 <p>
-                  <b> Date:</b> {dayjs(task.reminderDate).format("dddd, MMM D")}
+                  <b> Date:</b> {dayjs(task.reminderDate).format("dddd, MMM D, YYYY")}
                 </p>
                 <p>
                   <b>Time:</b> {task.reminderTime}
