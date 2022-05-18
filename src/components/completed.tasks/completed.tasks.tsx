@@ -1,16 +1,11 @@
 import dayjs from "dayjs";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { RemoveTaskProp } from "../../App";
 import { completedTaskAtom, tasksAtom } from "../../state/atoms";
 
-const CompletedTasks = () => {
+const CompletedTasks = ({ removeTask }: RemoveTaskProp) => {
   const completedTasks = useRecoilValue(completedTaskAtom);
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const removeTask = (index: number) => {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    setTasks(newTasks);
-  };
   return (
     <div>
       <h1 className="text-center">Completed Tasks</h1>
@@ -38,7 +33,7 @@ const CompletedTasks = () => {
                 <p>
                   <b>Time:</b> {task.reminderTime}
                 </p>
-                <button onClick={() => removeTask(index)}>Delete Task</button>
+                <button onClick={() => removeTask(task.taskID)}>Delete Task</button>
               </div>
             </div>
           );

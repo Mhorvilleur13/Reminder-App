@@ -4,6 +4,7 @@ import { Tag } from "./tag";
 
 export interface Task {
   taskName: string;
+  taskID: string;
   reminderDate: string;
   reminderTime: string;
   tags: Tag[];

@@ -8,26 +8,23 @@ import dayjs from "dayjs";
 interface TaskComponentProps {
   task: Task;
   completeTask: (index: number) => void;
+  removeTask: (id: string) => void;
 }
 
 const TaskComponent = (
   {
     task: {
       taskName,
+      taskID,
       reminderConfig: { customMessage },
       reminderDate,
       reminderTime,
     },
     completeTask,
+    removeTask,
   }: TaskComponentProps,
   index: number
 ) => {
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const removeTask = (index: number) => {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    setTasks(newTasks);
-  };
   return (
     <div className="card  mb-4 mx-auto card-class">
       <div className="card-header">
@@ -41,8 +38,11 @@ const TaskComponent = (
         <p>
           <b> Time:</b> {reminderTime}
         </p>
-        <button onClick={() => removeTask(index)}>Delete Task</button>
-        <button onClick={() => completeTask(index)}></button>
+        <button onClick={() => removeTask(taskID)}>Delete Task</button>
+        <button className="mt-2" onClick={() => completeTask(index)}>
+          {" "}
+          Task Complete
+        </button>
       </div>
     </div>
   );
