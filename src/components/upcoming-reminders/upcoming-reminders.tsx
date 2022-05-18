@@ -3,15 +3,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { missedTaskState, tasksAtom, upcomingTasksState } from "../../state/atoms";
 import "../../index.css";
 import dayjs from "dayjs";
+import { CompleteTaskProp, RemoveTaskProp } from "../../App";
 
-const UpcomingReminders = () => {
+const UpcomingReminders = (props: CompleteTaskProp & RemoveTaskProp) => {
+  const { completeTask, removeTask } = props;
   const upcoming = useRecoilValue(upcomingTasksState);
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const removeTask = (index: number) => {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    setTasks(newTasks);
-  };
   return (
     <div>
       <h1 className="text-center mb-3">Upcoming Reminders</h1>
@@ -39,7 +35,10 @@ const UpcomingReminders = () => {
                 <p>
                   <b> Time:</b> {task.reminderTime}
                 </p>
-                <button onClick={() => removeTask(index)}>Delete Task</button>
+                <button onClick={() => removeTask(task.taskID)}>Delete Task</button>
+                <button className="mt-2" onClick={() => completeTask(index)}>
+                  Task Complete
+                </button>
               </div>
             </div>
           );

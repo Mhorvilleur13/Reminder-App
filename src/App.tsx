@@ -27,6 +27,10 @@ export interface CompleteTaskProp {
   completeTask: (index: number) => void;
 }
 
+export interface RemoveTaskProp {
+  removeTask: (id: string) => void;
+}
+
 const App = () => {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
@@ -130,6 +134,15 @@ const App = () => {
     setChromeStorage();
   }, [completedTasks]);
 
+  const removeTask = (id: string) => {
+    const task = tasks.find((task) => task.taskID === id);
+    if (!task) {
+      return;
+    }
+    const newTasks = tasks.filter((task) => task.taskID !== id);
+    setTasks(newTasks);
+  };
+
   const completeTask = (index: number) => {
     const newTasks = [...tasks];
     const newCompletedTasks = [...completedTasks];
@@ -171,6 +184,7 @@ const App = () => {
       newCompletedTasks.push(task);
       setCompletedTasks(newCompletedTasks);
       newTasks.splice(index, 1);
+      setTasks(newTasks);
     } else {
       console.log("Recurrance not set");
     }
@@ -211,13 +225,13 @@ const App = () => {
       </div>
       <div className="mt-4">
         <Routes>
-          <Route path="/tasks" element={<AllTasks completeTask={completeTask} />} />
-          <Route path="/upcoming" element={<UpcomingReminders />} />
-          <Route path="/today" element={<TodaysReminders />} />
+          <Route path="/tasks" element={<AllTasks completeTask={completeTask} removeTask={removeTask} />} />
+          <Route path="/upcoming" element={<UpcomingReminders completeTask={completeTask} removeTask={removeTask} />} />
+          <Route path="/today" element={<TodaysReminders completeTask={completeTask} removeTask={removeTask} />} />
           <Route path="/" element={<Form />} />
-          <Route path="/missed" element={<MissedTasks />}></Route>
-          <Route path="/recurring" element={<Recurring completeTask={completeTask} />}></Route>
-          <Route path="/completed" element={<CompletedTasks />}></Route>
+          <Route path="/missed" element={<MissedTasks removeTask={removeTask} />}></Route>
+          <Route path="/recurring" element={<Recurring completeTask={completeTask} removeTask={removeTask} />}></Route>
+          <Route path="/completed" element={<CompletedTasks removeTask={removeTask} />}></Route>
           <Route path="/about" element={<About />} />
         </Routes>
       </div>

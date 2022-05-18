@@ -1,17 +1,12 @@
 import dayjs from "dayjs";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { CompleteTaskProp } from "../../App";
+import { CompleteTaskProp, RemoveTaskProp } from "../../App";
 import { recurringTaskState, tasksAtom } from "../../state/atoms";
 
-const Recurring = ({ completeTask }: CompleteTaskProp) => {
+const Recurring = (props: CompleteTaskProp & RemoveTaskProp) => {
+  const { completeTask, removeTask } = props;
   const recurringTasks = useRecoilValue(recurringTaskState);
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const removeTask = (index: number) => {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    setTasks(newTasks);
-  };
   return (
     <div>
       <h1 className="text-center"> Recurring Tasks</h1>
@@ -39,8 +34,10 @@ const Recurring = ({ completeTask }: CompleteTaskProp) => {
                 <p>
                   <b>Time:</b> {task.reminderTime}
                 </p>
-                <button onClick={() => removeTask(index)}>Delete Task</button>
-                <button onClick={() => completeTask(index)}>Task Completed</button>
+                <button onClick={() => removeTask(task.taskID)}>Delete Task</button>
+                <button className="mt-2" onClick={() => completeTask(index)}>
+                  Task Completed
+                </button>
               </div>
             </div>
           );
