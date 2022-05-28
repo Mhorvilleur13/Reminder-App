@@ -1,9 +1,41 @@
 .page-container {
-    width: 300px;
-    max-height: 600px;
+  width: 300px;
+  max-height: 600px;
 }
 
 .card-class {
-    width: 16rem;
-    margin-bottom: 15rem;
+  width: 16rem;
+  margin-bottom: 15rem;
+}
+.task-name {
+  color: #464e56;
+  font-weight: 600;
+}
+.custom-message {
+  font-size: 18px;
+  font-weight: 500;
+  color: #868e94;
+}
+
+.date,
+.time {
+  font-size: 16px;
+  font-weight: 500;
+  color: #868e94;
+  text-align: left;
+}
+
+.image {
+  height: 16px;
+  width: 16px;
+}
+
+.small-image {
+  height: 14px;
+  width: 14px;
+}
+
+.padding-0 {
+  padding-right: 0;
+  padding-left: 0;
 }

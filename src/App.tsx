@@ -31,6 +31,10 @@ export interface RemoveTaskProp {
   removeTask: (id: string) => void;
 }
 
+export interface RemoveCompletedTaskProp {
+  removeCompletedTask: (id: string) => void;
+}
+
 const App = () => {
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const todayReminders = useRecoilValue(todayTaskState);
@@ -143,6 +147,15 @@ const App = () => {
     setTasks(newTasks);
   };
 
+  const removeCompletedTask = (id: string) => {
+    const task = completedTasks.find((task) => task.taskID === id);
+    if (!task) {
+      return;
+    }
+    const newTasks = completedTasks.filter((task) => task.taskID !== id);
+    setCompletedTasks(newTasks);
+  };
+
   const completeTask = (index: number) => {
     const newTasks = [...tasks];
     const newCompletedTasks = [...completedTasks];
@@ -193,8 +206,8 @@ const App = () => {
   return (
     <div className="mt-4 container page-container">
       <div className="row">
-        <div className="d-grid gap-2 col-6 mx-auto">
-          <Link to="/" className="btn btn-primary btn-sm">
+        <div className="d-grid gap-2 col-6 mx-auto ">
+          <Link to="/" className="btn btn-primary btn-sm  ">
             Add Task
           </Link>
           <Link to="/tasks" className="btn btn-primary btn-sm">
@@ -229,9 +242,9 @@ const App = () => {
           <Route path="/upcoming" element={<UpcomingReminders completeTask={completeTask} removeTask={removeTask} />} />
           <Route path="/today" element={<TodaysReminders completeTask={completeTask} removeTask={removeTask} />} />
           <Route path="/" element={<Form />} />
-          <Route path="/missed" element={<MissedTasks removeTask={removeTask} />}></Route>
+          <Route path="/missed" element={<MissedTasks removeTask={removeTask} completeTask={completeTask} />}></Route>
           <Route path="/recurring" element={<Recurring completeTask={completeTask} removeTask={removeTask} />}></Route>
-          <Route path="/completed" element={<CompletedTasks removeTask={removeTask} />}></Route>
+          <Route path="/completed" element={<CompletedTasks removeCompletedTask={removeCompletedTask} />}></Route>
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
