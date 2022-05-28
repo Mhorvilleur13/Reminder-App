@@ -27,8 +27,8 @@ const AllTasks = (props: CompleteTaskProp & RemoveTaskProp) => {
           </div>
         </div>
       ) : (
-        tasks.map((task: Task) => {
-          return <TaskComponent task={task} completeTask={completeTask} removeTask={removeTask} />;
+        tasks.map((task: Task, index: number) => {
+          return <TaskComponent task={task} index={index} completeTask={completeTask} removeTask={removeTask} />;
         })
       )}
     </div>
