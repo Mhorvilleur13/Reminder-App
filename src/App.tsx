@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
@@ -22,6 +22,8 @@ import { resourceLimits } from "worker_threads";
 import Recurring from "./components/recurring/recurring";
 import dayjs from "dayjs";
 import CompletedTasks from "./components/completed.tasks/completed.tasks";
+import burger from "../src/assets/images/hamburger.png";
+import cancel from "../src/assets/images/cancel.png";
 
 export interface CompleteTaskProp {
   completeTask: (index: number) => void;
@@ -44,6 +46,7 @@ const App = () => {
   const completeReady = useRef(false);
   const recurringTasks = useRecoilValue(recurringTaskState);
   const [completedTasks, setCompletedTasks] = useRecoilState(completedTaskAtom);
+  const [menuOpen, setMenu] = useState(false);
 
   //get Tasks
   useEffect(() => {
@@ -202,46 +205,65 @@ const App = () => {
       console.log("Recurrance not set");
     }
   };
+  const handleClick = (event: any) => {
+    if (!menuOpen) {
+      event.currentTarget.classList.add("open");
+      setMenu(true);
+    } else {
+      event.currentTarget.classList.remove("open");
+      setMenu(false);
+    }
+  };
 
   return (
     <div className="mt-4 container page-container">
       <div className="row">
-        <div className="d-grid gap-2 col-6 mx-auto ">
-          <Link to="/" className="btn btn-primary btn-sm  ">
-            Add Task
-          </Link>
-          <Link to="/tasks" className="btn btn-primary btn-sm">
-            All Reminders <span className="badge badge-light text-dark">{tasks.length > 0 && tasks.length}</span>
-          </Link>
-          <Link to="/today" className="btn btn-primary btn-sm">
-            Today&apos;s Tasks{" "}
-            <span className="badge badge-light text-dark">{todayReminders.length > 0 && todayReminders.length}</span>
-          </Link>
-          <Link to="/upcoming" className="btn btn-primary btn-sm">
-            Upcoming Tasks <span className="badge badge-light text-dark">{upcoming.length > 0 && upcoming.length}</span>
-          </Link>
-          <Link to="/missed" className="btn btn-primary btn-sm">
-            Missed Tasks <span className="badge badge-danger text-white">{missed.length > 0 && missed.length}</span>
-          </Link>
-          <Link to="/recurring" className="btn btn-primary btn-sm">
-            Recurring Tasks{" "}
-            <span className="badge badge-light text-dark">{recurringTasks.length > 0 && recurringTasks.length}</span>
-          </Link>
-          <Link to="/completed" className="btn btn-primary btn-sm">
-            Completed Tasks{" "}
-            <span className="badge badge-light text-dark">{completedTasks.length > 0 && completedTasks.length}</span>
-          </Link>
-          <Link to="/about" className="btn btn-primary btn-sm">
-            About
-          </Link>
+        <div className="d-grid gap-2 pb-3 col-4 mx-auto ">
+          <div className="menu-btn" onClick={handleClick}>
+            <div className="menu-btn_burger"></div>
+          </div>
         </div>
       </div>
+      {menuOpen && (
+        <div className="row">
+          <div className="d-grid gap-2 pt-3 col-6 mx-auto ">
+            <Link to="/add" className="btn btn-primary btn-sm  ">
+              Add Task
+            </Link>
+            <Link to="/" className="btn btn-primary btn-sm">
+              All Reminders <span className="badge badge-light text-dark">{tasks.length > 0 && tasks.length}</span>
+            </Link>
+            <Link to="/today" className="btn btn-primary btn-sm">
+              Today&apos;s Tasks{" "}
+              <span className="badge badge-light text-dark">{todayReminders.length > 0 && todayReminders.length}</span>
+            </Link>
+            <Link to="/upcoming" className="btn btn-primary btn-sm">
+              Upcoming Tasks{" "}
+              <span className="badge badge-light text-dark">{upcoming.length > 0 && upcoming.length}</span>
+            </Link>
+            <Link to="/missed" className="btn btn-primary btn-sm">
+              Missed Tasks <span className="badge badge-danger text-white">{missed.length > 0 && missed.length}</span>
+            </Link>
+            <Link to="/recurring" className="btn btn-primary btn-sm">
+              Recurring Tasks{" "}
+              <span className="badge badge-light text-dark">{recurringTasks.length > 0 && recurringTasks.length}</span>
+            </Link>
+            <Link to="/completed" className="btn btn-primary btn-sm">
+              Completed Tasks{" "}
+              <span className="badge badge-light text-dark">{completedTasks.length > 0 && completedTasks.length}</span>
+            </Link>
+            <Link to="/about" className="btn btn-primary btn-sm">
+              About
+            </Link>
+          </div>
+        </div>
+      )}
       <div className="mt-4">
         <Routes>
-          <Route path="/tasks" element={<AllTasks completeTask={completeTask} removeTask={removeTask} />} />
+          <Route path="/" element={<AllTasks completeTask={completeTask} removeTask={removeTask} />} />
           <Route path="/upcoming" element={<UpcomingReminders completeTask={completeTask} removeTask={removeTask} />} />
           <Route path="/today" element={<TodaysReminders completeTask={completeTask} removeTask={removeTask} />} />
-          <Route path="/" element={<Form />} />
+          <Route path="/add" element={<Form />} />
           <Route path="/missed" element={<MissedTasks removeTask={removeTask} completeTask={completeTask} />}></Route>
           <Route path="/recurring" element={<Recurring completeTask={completeTask} removeTask={removeTask} />}></Route>
           <Route path="/completed" element={<CompletedTasks removeCompletedTask={removeCompletedTask} />}></Route>

@@ -20,7 +20,7 @@ const AllTasks = (props: CompleteTaskProp & RemoveTaskProp) => {
           </div>
           <div className="card-body">
             <p>You have no reminders. To add a reminder, click below.</p>
-            <Link to="/" className="btn btn-primary">
+            <Link to="/add" className="btn btn-primary">
               {" "}
               Add Task
             </Link>
