@@ -1,13 +1,18 @@
 .page-container {
   width: 300px;
   max-height: 600px;
+  margin-bottom: 100px;
 }
 
 .card-class {
   width: 16rem;
-  margin-bottom: 15rem;
 }
 .task-name {
+  color: #464e56;
+  font-weight: 600;
+}
+
+.page-title {
   color: #464e56;
   font-weight: 600;
 }

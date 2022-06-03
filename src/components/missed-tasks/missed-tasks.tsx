@@ -11,10 +11,10 @@ const MissedTasks = (props: CompleteTaskProp & RemoveTaskProp) => {
   const missedTasks = useRecoilValue(missedTaskState);
 
   return (
-    <div>
-      <h1 className="text-center">Missed Tasks</h1>
+    <div className="pb-4">
+      <h1 className="text-center page-title">Missed Tasks</h1>
       {missedTasks.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto card-class">
+        <div className="card shadow-lg mb-5 bg-white rounded  mb-4 mx-auto card-class">
           <div className="card-header">
             <h2>No Missed Tasks</h2>
           </div>

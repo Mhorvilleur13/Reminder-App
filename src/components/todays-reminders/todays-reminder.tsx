@@ -11,10 +11,10 @@ const TodaysReminders = (props: CompleteTaskProp & RemoveTaskProp) => {
   const { completeTask, removeTask } = props;
   const todayReminders = useRecoilValue(todayTaskState);
   return (
-    <div>
-      <h1 className="text-center">Todays Reminders</h1>
+    <div className="pb-4">
+      <h1 className="text-center page-title">Todays Reminders</h1>
       {todayReminders.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto card-class">
+        <div className="card shadow-lg bg-white rounded   mx-auto card-class">
           <div className="card-header">
             <h2>No Tasks Today</h2>
           </div>
