@@ -75,7 +75,7 @@ const Form = () => {
   const reminderTypesArray = [ReminderType.EMAIL, ReminderType.IN_APP, ReminderType.SMS];
   return (
     <div className="row">
-      <h1 className="text-center">Add a New Task</h1>
+      <h1 className="text-center page-title">Add a New Task</h1>
       <div className="col-8 mx-auto border">
         <form onSubmit={handleSubmit(onSubmit)} className="form-group" id="form">
           <div className="border-0 text-secondary mt-3">

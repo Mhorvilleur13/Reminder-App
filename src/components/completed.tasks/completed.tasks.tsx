@@ -11,10 +11,10 @@ import calendar from "../../assets/images/calendar.png";
 const CompletedTasks = ({ removeCompletedTask }: RemoveCompletedTaskProp) => {
   const completedTasks = useRecoilValue(completedTaskAtom);
   return (
-    <div>
-      <h1 className="text-center">Completed Tasks</h1>
+    <div className="pb-4">
+      <h1 className="text-center page-title">Completed Tasks</h1>
       {completedTasks.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto card-class">
+        <div className="card shadow-lg  bg-white rounded  mb-4 mx-auto card-class">
           <div className="card-header">
             <h2>No Completed Tasks</h2>
           </div>

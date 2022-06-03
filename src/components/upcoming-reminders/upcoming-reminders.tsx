@@ -10,10 +10,10 @@ const UpcomingReminders = (props: CompleteTaskProp & RemoveTaskProp) => {
   const { completeTask, removeTask } = props;
   const upcoming = useRecoilValue(upcomingTasksState);
   return (
-    <div>
-      <h1 className="text-center mb-3">Upcoming Reminders</h1>
+    <div className="pb-4">
+      <h1 className="text-center mb-3 page-title">Upcoming Reminders</h1>
       {upcoming.length === 0 ? (
-        <div className="card mt-5 bg-light mx-auto card-class">
+        <div className="card shadow-lg mb-5 bg-white rounded  mb-4 mx-auto card-class">
           <div className="card-header">
             <h2>No Upcoming Tasks</h2>
           </div>
