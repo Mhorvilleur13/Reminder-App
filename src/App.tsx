@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import "./index.css";
@@ -44,9 +44,31 @@ const App = () => {
   const missed = useRecoilValue(missedTaskState);
   const ready = useRef(false);
   const completeReady = useRef(false);
+  const locationReady = useRef(false);
   const recurringTasks = useRecoilValue(recurringTaskState);
   const [completedTasks, setCompletedTasks] = useRecoilState(completedTaskAtom);
   const [menuOpen, setMenu] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  //get location
+  useEffect(() => {
+    const getChromeStorage = () => {
+      try {
+        chrome.storage.sync.get("Location", function (result) {
+          locationReady.current = true;
+          if (result.Location) {
+            navigate(result.Location);
+          } else {
+            navigate("/");
+          }
+        });
+      } catch (error) {
+        logger.error(error);
+      }
+    };
+    getChromeStorage();
+  }, []);
 
   //get Tasks
   useEffect(() => {
@@ -80,25 +102,6 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Set Tasks
-  useEffect(() => {
-    if (!ready.current) {
-      return;
-    }
-    console.log(`setting tasks: ${tasks}`);
-    const setChromeStorage = async () => {
-      try {
-        chrome.storage.sync.set({ Tasks: tasks }, function () {
-          console.log(tasks);
-        });
-      } catch (error) {
-        logger.error(error);
-      }
-    };
-
-    setChromeStorage();
-  }, [tasks]);
-
   //get completed Tasks
   useEffect(() => {
     console.log("getting tasks");
@@ -122,6 +125,25 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Set Tasks
+  useEffect(() => {
+    if (!ready.current) {
+      return;
+    }
+    console.log(`setting tasks: ${tasks}`);
+    const setChromeStorage = async () => {
+      try {
+        chrome.storage.sync.set({ Tasks: tasks }, function () {
+          console.log(tasks);
+        });
+      } catch (error) {
+        logger.error(error);
+      }
+    };
+
+    setChromeStorage();
+  }, [tasks]);
+
   // set completed Tasks
   useEffect(() => {
     if (!completeReady.current) {
@@ -140,6 +162,24 @@ const App = () => {
 
     setChromeStorage();
   }, [completedTasks]);
+
+  //set location
+  useEffect(() => {
+    if (!locationReady.current) {
+      return;
+    }
+    const setChromeStorage = async () => {
+      try {
+        chrome.storage.sync.set({ Location: location }, function () {
+          console.log(`Current Location set to : ${location}`);
+        });
+      } catch (error) {
+        logger.error(error);
+      }
+    };
+
+    setChromeStorage();
+  }, [location]);
 
   const removeTask = (id: string) => {
     const task = tasks.find((task) => task.taskID === id);

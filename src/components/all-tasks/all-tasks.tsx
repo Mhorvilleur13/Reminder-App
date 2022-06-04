@@ -3,7 +3,7 @@ import { Task } from "../../types/task";
 import TaskComponent from "../task/task";
 import { tasksAtom } from "../../state/atoms";
 import { useRecoilValue } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../../index.css";
 import { CompleteTaskProp, RemoveTaskProp } from "../../App";
 
