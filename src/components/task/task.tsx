@@ -8,6 +8,7 @@ import calendar from "../../assets/images/calendar.png";
 import clock from "../../assets/images/back-in-time.png";
 import bin from "../../assets/images/delete-16.png";
 import check from "../../assets/images/checkmark-16.png";
+import { useLocation } from "react-router-dom";
 
 interface TaskComponentProps {
   task: Task;
