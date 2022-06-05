@@ -49,10 +49,8 @@ export const missedTaskState = selector({
     const taskList = get(tasksAtom);
     const missedFilter: Task[] = [];
     taskList.forEach((task) => {
-      if (dayjs().isAfter(dayjs(task.reminderDate))) {
-        if (dayjs().format("H:m") > task.reminderTime) {
-          missedFilter.push(task);
-        }
+      if (dayjs().isAfter(dayjs(task.reminderDate + "T" + task.reminderTime))) {
+        missedFilter.push(task);
       }
     });
     return missedFilter;
