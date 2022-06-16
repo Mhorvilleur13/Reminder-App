@@ -29,10 +29,10 @@ const TaskComponent = ({
   removeTask,
   index,
 }: TaskComponentProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   return (
     <div>
-      <div className="card shadow-lg mb-5 bg-white rounded  mb-4 mx-auto card-class">
+      <div className="card shadow-lg mb-5 bg-white rounded  mb-4 mx-auto card-class" key={`task-${index}`}>
         <div className="card-header">
           <h2 className="task-name">{taskName}</h2>
         </div>
@@ -55,33 +55,32 @@ const TaskComponent = ({
             </div>
           </div>
           <button className="btn btn-primary btn-sm btn-block" onClick={() => completeTask(index)}>
-            {" "}
             <img src={check} className="image"></img> Task Complete
           </button>
-          <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsOpen(true)}>
+          <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsDeleteModalOpen(true)}>
             <img src={bin} className="image"></img> Delete Task
           </button>
         </div>
       </div>
-      {isOpen && (
-        <div className="modal show" tabIndex={-1} role="dialog">
-          <div className="modal-dialog" role="document">
+      {isDeleteModalOpen && (
+        <div className="modal fade show d-block" role="dialog">
+          <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Modal title</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <h5 className="modal-title">C&apos;mon, Michael...</h5>
+                <button type="button" className="close" aria-label="Close" onClick={() => setIsDeleteModalOpen(false)}>
+                  <span aria-hidden="true">×</span>
                 </button>
               </div>
               <div className="modal-body">
-                <p>Modal body text goes here.</p>
+                <p>You can do this!</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary">
-                  Save changes
+                <button type="button" className="btn btn-secondary" onClick={() => setIsDeleteModalOpen(false)}>
+                  I can!
                 </button>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                  Close
+                <button type="button" className="btn btn-primary" onClick={() => setIsDeleteModalOpen(false)}>
+                  No way!
                 </button>
               </div>
             </div>
