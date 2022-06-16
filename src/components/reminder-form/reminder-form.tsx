@@ -167,7 +167,7 @@ const Form = () => {
             </div>
           )}
           <div className="mt-3">
-            <button type="submit" className="btn btn-primary" data-bs-toggle="modal" data-target={"#submitModal"}>
+            <button type="submit" className="btn btn-primary">
               Add reminder to your list
             </button>
           </div>
