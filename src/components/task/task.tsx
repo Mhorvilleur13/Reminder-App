@@ -67,20 +67,27 @@ const TaskComponent = ({
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">C&apos;mon, Michael...</h5>
+                <h5 className="modal-title">Confirm Deletion</h5>
                 <button type="button" className="close" aria-label="Close" onClick={() => setIsDeleteModalOpen(false)}>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
               <div className="modal-body">
-                <p>You can do this!</p>
+                <p>Are you sure you would like to delete this task?</p>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={() => setIsDeleteModalOpen(false)}>
-                  I can!
+                  Cancel
                 </button>
-                <button type="button" className="btn btn-primary" onClick={() => setIsDeleteModalOpen(false)}>
-                  No way!
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setIsDeleteModalOpen(false);
+                    removeTask(taskID);
+                  }}
+                >
+                  Delete
                 </button>
               </div>
             </div>
