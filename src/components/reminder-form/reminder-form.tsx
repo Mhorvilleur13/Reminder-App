@@ -9,6 +9,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { missedTaskState, tasksAtom } from "../../state/atoms";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
+import { Link, useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [taskName, setTaskName] = useState("");
@@ -21,6 +22,8 @@ const Form = () => {
   const [reminderBeforeMs, setReminderBeforeMs] = useState(1 * HOURS);
   const [tasks, setTasks] = useRecoilState(tasksAtom);
   const { handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const [moreThanOne, setMoreThanOne] = useState(false);
 
   const onSubmit = (_data: any, _e: any) => {
     const removeDash = (str: string) => {
@@ -61,6 +64,9 @@ const Form = () => {
       (a, b) => parseInt(removeDash(a.reminderDate)) - parseInt(removeDash(b.reminderDate))
     );
     setTasks(sortedTasks);
+    if (!moreThanOne) {
+      navigate("/");
+    }
     _e.target.reset();
   };
 
@@ -166,6 +172,23 @@ const Form = () => {
               </select>
             </div>
           )}
+          <div className=" border-0 mt-3 text-secondary">
+            <h6>Are you submitting more than one task?</h6>
+            <div className="row">
+              <div onClick={() => setMoreThanOne(true)}>
+                <input id="is-moreThanOne-yes" checked={moreThanOne} readOnly type="radio" />
+                <label className="ml-2" htmlFor="yes">
+                  Yes
+                </label>
+              </div>
+              <div onClick={() => setMoreThanOne(false)}>
+                <input id="is-moreThanOne-no" checked={!moreThanOne} readOnly type="radio" />
+                <label className="ml-2" htmlFor="no">
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
           <div className="mt-3">
             <button type="submit" className="btn btn-primary">
               Add reminder to your list
