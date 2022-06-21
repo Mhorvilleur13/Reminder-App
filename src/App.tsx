@@ -50,6 +50,7 @@ const App = () => {
   const [menuOpen, setMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   //get location
   useEffect(() => {
@@ -246,11 +247,13 @@ const App = () => {
     }
   };
   const handleClick = (event: any) => {
+    const currentMenuRef = menuRef.current;
     if (!menuOpen) {
-      event.currentTarget.classList.add("open");
+      currentMenuRef?.classList.add("open");
       setMenu(true);
     } else {
-      event.currentTarget.classList.remove("open");
+      currentMenuRef?.classList.remove("open");
+      //event.currentTarget.classList.remove("open");
       setMenu(false);
     }
   };
@@ -259,7 +262,7 @@ const App = () => {
     <div className="mt-4 container page-container">
       <div className="row">
         <div className="d-grid gap-2 pb-3 col-4 mx-auto ">
-          <div className="menu-btn" onClick={handleClick}>
+          <div ref={menuRef} className="menu-btn" onClick={handleClick}>
             <div className="menu-btn_burger"></div>
           </div>
         </div>
@@ -267,32 +270,32 @@ const App = () => {
       {menuOpen && (
         <div className="row">
           <div className="d-grid gap-2 pt-3 col-6 mx-auto ">
-            <Link to="/add" className="btn btn-primary btn-sm  ">
+            <Link to="/add" onClick={handleClick} className="btn btn-primary btn-sm  ">
               Add Task
             </Link>
-            <Link to="/" className="btn btn-primary btn-sm">
+            <Link to="/" onClick={handleClick} className="btn btn-primary btn-sm">
               All Reminders <span className="badge badge-light text-dark">{tasks.length > 0 && tasks.length}</span>
             </Link>
-            <Link to="/today" className="btn btn-primary btn-sm">
+            <Link to="/today" onClick={handleClick} className="btn btn-primary btn-sm">
               Today&apos;s Tasks{" "}
               <span className="badge badge-light text-dark">{todayReminders.length > 0 && todayReminders.length}</span>
             </Link>
-            <Link to="/upcoming" className="btn btn-primary btn-sm">
+            <Link to="/upcoming" onClick={handleClick} className="btn btn-primary btn-sm">
               Upcoming Tasks{" "}
               <span className="badge badge-light text-dark">{upcoming.length > 0 && upcoming.length}</span>
             </Link>
-            <Link to="/missed" className="btn btn-primary btn-sm">
+            <Link to="/missed" onClick={handleClick} className="btn btn-primary btn-sm">
               Missed Tasks <span className="badge badge-danger text-white">{missed.length > 0 && missed.length}</span>
             </Link>
-            <Link to="/recurring" className="btn btn-primary btn-sm">
+            <Link to="/recurring" onClick={handleClick} className="btn btn-primary btn-sm">
               Recurring Tasks{" "}
               <span className="badge badge-light text-dark">{recurringTasks.length > 0 && recurringTasks.length}</span>
             </Link>
-            <Link to="/completed" className="btn btn-primary btn-sm">
+            <Link to="/completed" onClick={handleClick} className="btn btn-primary btn-sm">
               Completed Tasks{" "}
               <span className="badge badge-light text-dark">{completedTasks.length > 0 && completedTasks.length}</span>
             </Link>
-            <Link to="/about" className="btn btn-primary btn-sm">
+            <Link to="/about" onClick={handleClick} className="btn btn-primary btn-sm">
               About
             </Link>
           </div>
