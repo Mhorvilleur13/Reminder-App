@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { RemoveCompletedTaskProp, RemoveTaskProp } from "../../App";
 import { completedTaskAtom, tasksAtom } from "../../state/atoms";
@@ -10,6 +10,7 @@ import calendar from "../../assets/images/calendar.png";
 
 const CompletedTasks = ({ removeCompletedTask }: RemoveCompletedTaskProp) => {
   const completedTasks = useRecoilValue(completedTaskAtom);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   return (
     <div className="pb-4">
       <h1 className="text-center page-title">Completed Tasks</h1>
@@ -47,10 +48,47 @@ const CompletedTasks = ({ removeCompletedTask }: RemoveCompletedTaskProp) => {
                     <p className="time">Time: {task.reminderTime}</p>
                   </div>
                 </div>
-                <button className="btn btn-primary btn-sm btn-block" onClick={() => removeCompletedTask(task.taskID)}>
+                <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsDeleteModalOpen(true)}>
                   <img src={bin} className="image"></img> Delete Task
                 </button>
               </div>
+              {isDeleteModalOpen && (
+                <div className="modal fade show d-block" role="dialog">
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title">Confirm Deletion</h5>
+                        <button
+                          type="button"
+                          className="close"
+                          aria-label="Close"
+                          onClick={() => setIsDeleteModalOpen(false)}
+                        >
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <p>Are you sure you would like to delete this task?</p>
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" onClick={() => setIsDeleteModalOpen(false)}>
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => {
+                            setIsDeleteModalOpen(false);
+                            removeCompletedTask(task.taskID);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })
