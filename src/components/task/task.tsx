@@ -58,7 +58,7 @@ const TaskComponent = ({
           <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsCompleteModalOpen(true)}>
             <img src={check} className="image"></img> Task Complete
           </button>
-          <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsDeleteModalOpen(true)}>
+          <button className="btn btn-danger btn-sm btn-block" onClick={() => setIsDeleteModalOpen(true)}>
             <img src={bin} className="image"></img> Delete Task
           </button>
         </div>
