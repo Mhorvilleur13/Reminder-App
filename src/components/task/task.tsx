@@ -30,6 +30,7 @@ const TaskComponent = ({
   index,
 }: TaskComponentProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
   return (
     <div>
       <div className="card shadow-lg mb-5 bg-white rounded  mb-4 mx-auto card-class" key={`task-${index}`}>
@@ -54,7 +55,7 @@ const TaskComponent = ({
               <p className="time">Time: {reminderTime}</p>
             </div>
           </div>
-          <button className="btn btn-primary btn-sm btn-block" onClick={() => completeTask(index)}>
+          <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsCompleteModalOpen(true)}>
             <img src={check} className="image"></img> Task Complete
           </button>
           <button className="btn btn-primary btn-sm btn-block" onClick={() => setIsDeleteModalOpen(true)}>
@@ -88,6 +89,43 @@ const TaskComponent = ({
                   }}
                 >
                   Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isCompleteModalOpen && (
+        <div className="modal fade show d-block" role="dialog">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Confirm Completion</h5>
+                <button
+                  type="button"
+                  className="close"
+                  aria-label="Close"
+                  onClick={() => setIsCompleteModalOpen(false)}
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you this Task is Complete?</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setIsCompleteModalOpen(false)}>
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setIsCompleteModalOpen(false);
+                    completeTask(index);
+                  }}
+                >
+                  Task Complete
                 </button>
               </div>
             </div>
