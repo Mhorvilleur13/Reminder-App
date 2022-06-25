@@ -3,9 +3,17 @@
   "name": "Reminder-App",
   "version": "0.1.0",
   "description": "Reminder app for all your tasks",
+  "icons": {
+    "128": "tasks.png"
+  },
   "action": {
     "default_popup": "index.html",
-    "default_title": "Reminder App"
+    "default_title": "Reminder App",
+    "default_icon": {
+      "16": "tasks.png",
+      "24": "tasks.png",
+      "32": "tasks.png"
+    }
   },
   "permissions": ["storage"]
 }
