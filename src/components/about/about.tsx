@@ -5,8 +5,8 @@ const About = () => {
     <div>
       <h2>About the app</h2>
       <p>
-        We believe the <b>simple</b>, the better. So we designed a simple, easy to use reminder app that will always be
-        a click away.{" "}
+        We believe the <b>simple</b>, the <b>better</b>. So we designed a simple, easy to use reminder app that will
+        always be a click away.{" "}
       </p>
     </div>
   );
