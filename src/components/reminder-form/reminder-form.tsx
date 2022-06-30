@@ -98,25 +98,6 @@ const Form = () => {
             <textarea id="custom-message" onChange={(e) => setTaskMessage(e.target.value)} className="form-control" />
           </div>
           <div className=" border-0 mt-3 text-secondary">
-            <h6>How would you like to be reminded?</h6>
-            {reminderTypesArray.map((reminderType, index) => {
-              return (
-                <div key={`reminder-type-${reminderType}-${index}`} className="form-check">
-                  <input
-                    value={index}
-                    type="checkbox"
-                    className="form-check-input"
-                    id={`reminder-type-${reminderType}-${index}`}
-                    onChange={(e) => setReminderType(reminderTypesArray[Number(e.target.value)])}
-                  />
-                  <label className="form-check-label" htmlFor={`reminder-type-${reminderType}-${index}`}>
-                    {reminderType}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          <div className=" border-0 mt-3 text-secondary">
             <h6>When would you like to be reminded?</h6>
             <input onChange={(e) => setReminderDate(e.target.value)} type="date" className="form-control" />
           </div>
