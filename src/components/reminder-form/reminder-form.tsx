@@ -106,18 +106,6 @@ const Form = () => {
             <input onChange={(e) => setReminderTime(e.target.value)} type="time" className="form-control" />
           </div>
           <div className=" border-0 mt-3 text-secondary">
-            <h6>How many hours before would you like to be reminded?</h6>
-            <input
-              value={reminderBeforeMs / HOURS}
-              onChange={(e) => {
-                const hours = Number(e.target.value) * HOURS;
-                setReminderBeforeMs(hours > 0 ? hours : 0);
-              }}
-              type="number"
-              className="form-control w-25"
-            />
-          </div>
-          <div className=" border-0 mt-3 text-secondary">
             <h6>Is this a recurring task?</h6>
             <div className="row">
               <div onClick={() => setIsRecurring(true)}>
