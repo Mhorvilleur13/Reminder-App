@@ -19,7 +19,7 @@ const MissedTasks = (props: CompleteTaskProp & RemoveTaskProp) => {
             <h2>No Missed Tasks</h2>
           </div>
           <div className="card-body">
-            <p>You have no misses tasks. Chill out</p>
+            <p>You have no missed tasks.</p>
           </div>
         </div>
       ) : (

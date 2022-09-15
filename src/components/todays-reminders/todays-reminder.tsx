@@ -19,7 +19,7 @@ const TodaysReminders = (props: CompleteTaskProp & RemoveTaskProp) => {
             <h2>No Tasks Today</h2>
           </div>
           <div className="card-body">
-            <p>You have no tasks today. Sit back and chill</p>
+            <p>You have no tasks today.</p>
           </div>
         </div>
       ) : (
