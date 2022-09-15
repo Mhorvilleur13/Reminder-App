@@ -17,7 +17,7 @@ const Recurring = (props: CompleteTaskProp & RemoveTaskProp) => {
             <h2>No Recurring Tasks</h2>
           </div>
           <div className="card-body">
-            <p>You have no recurring tasks. Chill out</p>
+            <p>You have no recurring tasks.</p>
           </div>
         </div>
       ) : (

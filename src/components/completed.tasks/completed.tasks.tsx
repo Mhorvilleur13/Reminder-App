@@ -20,7 +20,7 @@ const CompletedTasks = ({ removeCompletedTask }: RemoveCompletedTaskProp) => {
             <h2>No Completed Tasks</h2>
           </div>
           <div className="card-body">
-            <p>You have no completed tasks. Chill out</p>
+            <p>You have no completed tasks.</p>
           </div>
         </div>
       ) : (

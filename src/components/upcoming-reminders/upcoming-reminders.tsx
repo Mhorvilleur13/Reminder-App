@@ -18,7 +18,7 @@ const UpcomingReminders = (props: CompleteTaskProp & RemoveTaskProp) => {
             <h2>No Upcoming Tasks</h2>
           </div>
           <div className="card-body">
-            <p>You have no tasks in the next 7 days. Relax!</p>
+            <p>You have no tasks in the next 7 days.</p>
           </div>
         </div>
       ) : (
